@@ -2,7 +2,7 @@
 //  ProjetIOSApp.swift
 //  ProjetIOS
 //
-//  Created by Daniel Armieux on 21/11/2022.
+//  Created by Hugo Bourgey on 21/11/2022.
 //
 
 import SwiftUI
