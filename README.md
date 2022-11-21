@@ -6,20 +6,20 @@ Sur la première page, l'utilisateur aurait accès à une liste de ses dépôts 
 L'application sera donc composée de 4 vues, et d'une base de données comportant 2 tables.
 
 
-**Bases de données : **
+**Bases de données :**
 
 - Dépôts (Magasins/ type de stock)     [Id, Nom]
 - Articles ()                 [Id Dépôt, Id Catégorie, Nom, Qte, Descriptions]
 - Catégories (Surgelés, vêtements… ) [Id, Nom, D0esc]
 
-**Vues : **
+**Vues :**
 
 - Listes des dépôts
 - Listes des articles du depots
 - Listes des catégories
 - Infos de l’article
 
-**Fonctionnalités secondaires (Implémentées si assez de temps) : **
+**Fonctionnalités secondaires (Implémentées si assez de temps) :**
 
 - Map des dépôts
 - Gestion des péremptions
