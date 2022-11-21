@@ -14,10 +14,8 @@
 		A313227D292B5DEE00EECBC4 /* ProjetIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A313227C292B5DEE00EECBC4 /* ProjetIOSTests.swift */; };
 		A3132287292B5DEE00EECBC4 /* ProjetIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3132286292B5DEE00EECBC4 /* ProjetIOSUITests.swift */; };
 		A3132289292B5DEE00EECBC4 /* ProjetIOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3132288292B5DEE00EECBC4 /* ProjetIOSUITestsLaunchTests.swift */; };
-		A3132297292B61AC00EECBC4 /* DEPOTS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3132295292B61AC00EECBC4 /* DEPOTS.xcdatamodeld */; };
-		A313229D292B629100EECBC4 /* ARTICLES.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A313229B292B629100EECBC4 /* ARTICLES.xcdatamodeld */; };
-		A31322A0292B62B300EECBC4 /* CATEGORIES.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A313229E292B62B300EECBC4 /* CATEGORIES.xcdatamodeld */; };
 		A3760B41292B7ACD009486E9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3760B40292B7ACD009486E9 /* DataController.swift */; };
+		A3760B49292B883B009486E9 /* BaseDeDonnees.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3760B47292B883B009486E9 /* BaseDeDonnees.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,10 +46,8 @@
 		A3132282292B5DEE00EECBC4 /* ProjetIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjetIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3132286292B5DEE00EECBC4 /* ProjetIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetIOSUITests.swift; sourceTree = "<group>"; };
 		A3132288292B5DEE00EECBC4 /* ProjetIOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjetIOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		A3132296292B61AC00EECBC4 /* DEPOTS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DEPOTS.xcdatamodel; sourceTree = "<group>"; };
-		A313229C292B629100EECBC4 /* Articles.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Articles.xcdatamodel; sourceTree = "<group>"; };
-		A313229F292B62B300EECBC4 /* CATEGORIES.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CATEGORIES.xcdatamodel; sourceTree = "<group>"; };
 		A3760B40292B7ACD009486E9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataController.swift; path = ../projetIOS/DataController.swift; sourceTree = "<group>"; };
+		A3760B48292B883B009486E9 /* BaseDeDonnees.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BaseDeDonnees.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +78,8 @@
 		A313225F292B5DEC00EECBC4 = {
 			isa = PBXGroup;
 			children = (
+				A3760B47292B883B009486E9 /* BaseDeDonnees.xcdatamodeld */,
 				A3760B40292B7ACD009486E9 /* DataController.swift */,
-				A313229E292B62B300EECBC4 /* CATEGORIES.xcdatamodeld */,
-				A313229B292B629100EECBC4 /* ARTICLES.xcdatamodeld */,
-				A3132295292B61AC00EECBC4 /* DEPOTS.xcdatamodeld */,
 				A313226A292B5DEC00EECBC4 /* ProjetIOS */,
 				A313227B292B5DEE00EECBC4 /* ProjetIOSTests */,
 				A3132285292B5DEE00EECBC4 /* ProjetIOSUITests */,
@@ -269,11 +263,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A313229D292B629100EECBC4 /* ARTICLES.xcdatamodeld in Sources */,
 				A3760B41292B7ACD009486E9 /* DataController.swift in Sources */,
-				A31322A0292B62B300EECBC4 /* CATEGORIES.xcdatamodeld in Sources */,
+				A3760B49292B883B009486E9 /* BaseDeDonnees.xcdatamodeld in Sources */,
 				A313226E292B5DEC00EECBC4 /* ContentView.swift in Sources */,
-				A3132297292B61AC00EECBC4 /* DEPOTS.xcdatamodeld in Sources */,
 				A313226C292B5DEC00EECBC4 /* ProjetIOSApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,33 +587,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		A3132295292B61AC00EECBC4 /* DEPOTS.xcdatamodeld */ = {
+		A3760B47292B883B009486E9 /* BaseDeDonnees.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				A3132296292B61AC00EECBC4 /* DEPOTS.xcdatamodel */,
+				A3760B48292B883B009486E9 /* BaseDeDonnees.xcdatamodel */,
 			);
-			currentVersion = A3132296292B61AC00EECBC4 /* DEPOTS.xcdatamodel */;
-			path = DEPOTS.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		A313229B292B629100EECBC4 /* ARTICLES.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A313229C292B629100EECBC4 /* Articles.xcdatamodel */,
-			);
-			currentVersion = A313229C292B629100EECBC4 /* Articles.xcdatamodel */;
-			path = ARTICLES.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		A313229E292B62B300EECBC4 /* CATEGORIES.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A313229F292B62B300EECBC4 /* CATEGORIES.xcdatamodel */,
-			);
-			currentVersion = A313229F292B62B300EECBC4 /* CATEGORIES.xcdatamodel */;
-			path = CATEGORIES.xcdatamodeld;
+			currentVersion = A3760B48292B883B009486E9 /* BaseDeDonnees.xcdatamodel */;
+			name = BaseDeDonnees.xcdatamodeld;
+			path = ../projetIOS/BaseDeDonnees.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
