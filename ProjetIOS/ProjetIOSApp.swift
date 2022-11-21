@@ -14,7 +14,7 @@ struct ProjetIOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            VueCategories().environment(\.managedObjectContext, dataController.container.viewContext)
+            VueArticles().environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }

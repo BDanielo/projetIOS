@@ -116,6 +116,75 @@ struct VueCategories: View {
         }
 }
 
+struct VueArticles: View {
+    
+    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Articles>
+    @Environment(\.managedObjectContext) var Element
+    
+    @State var nomArticleChoisi: String = ""
+    @State var descArticleChoisi: String = ""
+    @State var qteArticleChoisi: String = "0"
+    
+    @State var statutErreur: Bool = false
+    @State var messageErreur: String = ""
+    
+    var body: some View {
+        NavigationView{
+            VStack{
+                Text("Liste des articles")
+                    .padding()
+                List {
+                    ForEach(Requete) { Articles in
+                        HStack {
+                            Text(Articles.nom ?? "")
+                            Text(Articles.desc ?? "")
+                            Text(String(Articles.qte)).padding(.horizontal, 20)
+                        }
+                    }.onDelete(perform: supprimerArticle)
+                }
+                TextField("Nom de l'article", text:$nomArticleChoisi).multilineTextAlignment(.center)
+                TextField("Description de l'article", text:$descArticleChoisi).multilineTextAlignment(.center)
+                TextField("Quantite de l'article", text:$qteArticleChoisi).multilineTextAlignment(.center)
+                Button("+ Ajouter l'article") {
+                    ajoutArticle()
+                }
+                
+            }.alert(isPresented: $statutErreur) {
+                Alert(
+                    title: Text("Erreur"),
+                    message: Text(messageErreur)
+                )
+            }.padding()
+        }.navigationTitle("Liste des articles").navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func ajoutArticle() {
+        let nomChoisi = nomArticleChoisi
+        let descChoisi = descArticleChoisi
+        if (!nomChoisi.isEmpty) {
+        let qteChoisi : Int16 = Int16(qteArticleChoisi) ?? 0
+        let article = Articles(context: Element)
+        article.id = UUID()
+        article.nom = "\(nomChoisi)"
+        article.desc = "\(descChoisi)"
+        article.qte = qteChoisi
+        try? Element.save()
+        }
+        else {
+            statutErreur=true
+            messageErreur="Le nom de l'article ne doit pas etre vide"
+        }
+    }
+    
+    func supprimerArticle(at offsets: IndexSet) {
+        for offset in offsets {
+        let articleChoisi = Requete[offset]
+        Element.delete(articleChoisi)
+        }
+        try? Element.save()
+        }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         VueCategories()
