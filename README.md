@@ -1,6 +1,4 @@
 # projetIOS
-projetIOS
-
 Description rapide :
 
 Notre application permet à un commerçant de gérer son stock de marchandise pour un ou plusieurs magasins.
@@ -10,16 +8,16 @@ L'application sera donc composée de 4 vues, et d'une base de données comportan
 
 Bases de données : 
 
-Dépôts (Magasins/ type de stock)     [Id, Nom]
-Articles ()                 [Id Dépôt, Id Catégorie, Nom, Qte, Descriptions]
-Catégories (Surgelés, vêtements… ) [Id, Nom, D0esc]
+- Dépôts (Magasins/ type de stock)     [Id, Nom]
+- Articles ()                 [Id Dépôt, Id Catégorie, Nom, Qte, Descriptions]
+- Catégories (Surgelés, vêtements… ) [Id, Nom, D0esc]
 
 Vues : 
 
-Listes des dépôts
-Listes des articles du depots
-Listes des catégories
-Infos de l’article
+- Listes des dépôts
+- Listes des articles du depots
+- Listes des catégories
+- Infos de l’article
 
 Fonctionnalités secondaires (Implémentées si assez de temps) : 
 
