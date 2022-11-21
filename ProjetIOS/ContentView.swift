@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VueDepots: View {
     
-    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Depot>
+    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Depots>
     @Environment(\.managedObjectContext) var Element
     
     @State var nomDepotChoisi: String = ""
@@ -20,9 +20,9 @@ struct VueDepots: View {
                 Text("Liste des depots")
                     .padding()
                 List {
-                    ForEach(Requete) { Depot in
+                    ForEach(Requete) { Depots in
                         HStack {
-                            Text(Depot.nom ?? "").foregroundColor(.gray)
+                            Text(Depots.nom ?? "").foregroundColor(.gray)
                         }
                     }.onDelete(perform: supprimerDepot)
                 }
@@ -37,7 +37,7 @@ struct VueDepots: View {
     
     func nouveauDepot() {
         let nomChoisi = nomDepotChoisi
-        let nouveauDepot = Depot(context: Element)
+        let nouveauDepot = Depots(context: Element)
         nouveauDepot.id = UUID()
         nouveauDepot.nom = "\(nomChoisi)"
         try? Element.save()
