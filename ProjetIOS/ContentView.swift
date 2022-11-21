@@ -22,38 +22,38 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 VStack {
+                    Text("Reflexo")
                     HStack {
                         NavigationLink (destination: VueDepot()) {
                          Text ("Dépôts")
                          .padding(10)
-                         .foregroundColor(.white)
+                         .foregroundColor(.green)
                         }
                         NavigationLink (destination: VueCategorie()) {
                             Text ("Catégories")
                             .padding(10)
-                            .foregroundColor(.white)
+                            .foregroundColor(.green)
                         }
                         NavigationLink (destination: VueArticle()) {
                          Text ("Articles")
                          .padding(10)
-                         .foregroundColor(.white)
+                         .foregroundColor(.green)
                         }
                     }
                     .frame(width: UIScreen.screenWidth ,alignment: .top)
                     .listStyle(PlainListStyle())
                 }
-                .background(Color.red)
+                .background(Color.pink)
                 .frame(alignment: .top)
-
                 
                 Text("Hello, world!")
                     .padding()
-                
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-            .navigationBarTitle("Reflexo", displayMode: .inline)
+            .background(Color.yellow)
         }
-        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
+        .frame(alignment: .top)
+        
         
         
     }
