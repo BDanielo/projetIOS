@@ -17,6 +17,7 @@
 		A3132297292B61AC00EECBC4 /* DEPOTS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A3132295292B61AC00EECBC4 /* DEPOTS.xcdatamodeld */; };
 		A313229D292B629100EECBC4 /* ARTICLES.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A313229B292B629100EECBC4 /* ARTICLES.xcdatamodeld */; };
 		A31322A0292B62B300EECBC4 /* CATEGORIES.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A313229E292B62B300EECBC4 /* CATEGORIES.xcdatamodeld */; };
+		A3760B41292B7ACD009486E9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3760B40292B7ACD009486E9 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		A3132296292B61AC00EECBC4 /* DEPOTS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DEPOTS.xcdatamodel; sourceTree = "<group>"; };
 		A313229C292B629100EECBC4 /* Articles.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Articles.xcdatamodel; sourceTree = "<group>"; };
 		A313229F292B62B300EECBC4 /* CATEGORIES.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CATEGORIES.xcdatamodel; sourceTree = "<group>"; };
+		A3760B40292B7ACD009486E9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataController.swift; path = ../projetIOS/DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		A313225F292B5DEC00EECBC4 = {
 			isa = PBXGroup;
 			children = (
+				A3760B40292B7ACD009486E9 /* DataController.swift */,
 				A313229E292B62B300EECBC4 /* CATEGORIES.xcdatamodeld */,
 				A313229B292B629100EECBC4 /* ARTICLES.xcdatamodeld */,
 				A3132295292B61AC00EECBC4 /* DEPOTS.xcdatamodeld */,
@@ -267,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A313229D292B629100EECBC4 /* ARTICLES.xcdatamodeld in Sources */,
+				A3760B41292B7ACD009486E9 /* DataController.swift in Sources */,
 				A31322A0292B62B300EECBC4 /* CATEGORIES.xcdatamodeld in Sources */,
 				A313226E292B5DEC00EECBC4 /* ContentView.swift in Sources */,
 				A3132297292B61AC00EECBC4 /* DEPOTS.xcdatamodeld in Sources */,

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ProjetIOSApp: App {
+    
+    @StateObject private var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            VueDepots().environment(\.managedObjectContext, dataController.container.viewContext)
         }
     }
 }
