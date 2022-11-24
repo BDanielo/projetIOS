@@ -45,11 +45,11 @@ struct VueDepots: View {
     
     func supprimerDepot(at offsets: IndexSet) {
         for offset in offsets {
-        let depotChoisi = Requete[offset]
-        Element.delete(depotChoisi)
+            let depotChoisi = Requete[offset]
+            Element.delete(depotChoisi)
         }
         try? Element.save()
-        }
+    }
 }
 
 struct VueCategories: View {
@@ -109,11 +109,11 @@ struct VueCategories: View {
     
     func supprimerCategorie(at offsets: IndexSet) {
         for offset in offsets {
-        let categorieChoisie = Requete[offset]
-        Element.delete(categorieChoisie)
+            let categorieChoisie = Requete[offset]
+            Element.delete(categorieChoisie)
         }
         try? Element.save()
-        }
+    }
 }
 
 struct VueArticles: View {
@@ -134,11 +134,17 @@ struct VueArticles: View {
                 Text("Liste des articles")
                     .padding()
                 List {
+                    HStack {
+                        Text("Nom")
+                        Text("Qte")
+                    }
                     ForEach(Requete) { Articles in
                         HStack {
                             Text(Articles.nom ?? "")
-                            Text(Articles.desc ?? "")
-                            Text(String(Articles.qte)).padding(.horizontal, 20)
+                            Text(String(Articles.qte))
+                            Button("Plus d'infos") {
+                                //! lien a faire avec article pour la modif et afficher les infos
+                            }
                         }
                     }.onDelete(perform: supprimerArticle)
                 }
@@ -162,13 +168,13 @@ struct VueArticles: View {
         let nomChoisi = nomArticleChoisi
         let descChoisi = descArticleChoisi
         if (!nomChoisi.isEmpty) {
-        let qteChoisi : Int16 = Int16(qteArticleChoisi) ?? 0
-        let article = Articles(context: Element)
-        article.id = UUID()
-        article.nom = "\(nomChoisi)"
-        article.desc = "\(descChoisi)"
-        article.qte = qteChoisi
-        try? Element.save()
+            let qteChoisi : Int16 = Int16(qteArticleChoisi) ?? 0
+            let article = Articles(context: Element)
+            article.id = UUID()
+            article.nom = "\(nomChoisi)"
+            article.desc = "\(descChoisi)"
+            article.qte = qteChoisi
+            try? Element.save()
         }
         else {
             statutErreur=true
@@ -178,11 +184,11 @@ struct VueArticles: View {
     
     func supprimerArticle(at offsets: IndexSet) {
         for offset in offsets {
-        let articleChoisi = Requete[offset]
-        Element.delete(articleChoisi)
+            let articleChoisi = Requete[offset]
+            Element.delete(articleChoisi)
         }
         try? Element.save()
-        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
