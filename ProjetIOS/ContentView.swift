@@ -14,45 +14,45 @@ extension UIScreen{
 }
 
 
+extension TabView {
+
+    func myTabViewStyle() -> some View {
+        self.background(Color(UIColor.systemGray6))
+
+    }
+}
 
 
 struct ContentView: View {
+    init() {
+        UITabBar.appearance().isTranslucent = false
+    }
+    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         
-        NavigationView {
-            VStack {
-                VStack {
-                    Text("Reflexo")
-                    HStack {
-                        NavigationLink (destination: VueDepot()) {
-                         Text ("Dépôts")
-                         .padding(10)
-                         .foregroundColor(.green)
-                        }
-                        NavigationLink (destination: VueCategorie()) {
-                            Text ("Catégories")
-                            .padding(10)
-                            .foregroundColor(.green)
-                        }
-                        NavigationLink (destination: VueArticle()) {
-                         Text ("Articles")
-                         .padding(10)
-                         .foregroundColor(.green)
-                        }
-                    }
-                    .frame(width: UIScreen.screenWidth ,alignment: .top)
-                    .listStyle(PlainListStyle())
+        VStack{
+            Text("Reflexo")
+        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor.systemBlue))
+        
+        TabView {
+            VueDepot()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Depots")
                 }
-                .background(Color.pink)
-                .frame(alignment: .top)
-                
-                Text("Hello, world!")
-                    .padding()
+            VueCategorie()
+                .tabItem {
+                    Image(systemName: "square.split.2x2")
+                    Text("Categories")
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .top)
-            .background(Color.yellow)
-        }
-        .frame(alignment: .top)
+            VueArticle()
+                .tabItem {
+                    Image(systemName: "cube.box.fill")
+                    Text("Articles")
+            }
+        }.myTabViewStyle()
+
         
         
         
