@@ -7,49 +7,50 @@
 
 import SwiftUI
 
-struct VueDepots: View {
+extension UIScreen{
+    static let screenWidth = UIScreen.main.bounds.size.width
+    static let screenHeight = UIScreen.main.bounds.size.height
+    static let screenSize = UIScreen.main.bounds.size
+}
+
+
+extension TabView {
     
-    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Depots>
-    @Environment(\.managedObjectContext) var Element
+    func myTabViewStyle() -> some View {
+        self.background(Color(UIColor.systemGray6))
+    }
+}
+
+struct ContentView: View {
+    init() {
+        UITabBar.appearance().isTranslucent = false
+    }
     
-    @State var nomDepotChoisi: String = ""
-    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        NavigationView{
-            VStack{
-                Text("Liste des depots")
-                    .padding()
-                List {
-                    ForEach(Requete) { Depots in
-                        HStack {
-                            Text(Depots.nom ?? "").foregroundColor(.gray)
-                        }
-                    }.onDelete(perform: supprimerDepot)
+        
+        VStack{
+            Text("Reflexo")
+        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor.systemBlue))
+        
+        TabView {
+            //            VueDepots()
+            //                .tabItem {
+            //                    Image(systemName: "house.fill")
+            //                    Text("Depots")
+            //                }
+            VueCategories()
+                .tabItem {
+                    Image(systemName: "square.split.2x2")
+                    Text("Categories")
                 }
-                TextField("Nom du nouveau depot", text:$nomDepotChoisi).multilineTextAlignment(.center)
-                Button("+ Nouveau Depot") {
-                    nouveauDepot()
-                }
-                
-            }
-        }.navigationTitle("Liste des depots").navigationBarTitleDisplayMode(.inline)
+            //            VueArticle()
+            //                .tabItem {
+            //                    Image(systemName: "cube.box.fill")
+            //                    Text("Articles")
+            //            }
+        }.myTabViewStyle()
     }
-    
-    func nouveauDepot() {
-        let nomChoisi = nomDepotChoisi
-        let nouveauDepot = Depots(context: Element)
-        nouveauDepot.id = UUID()
-        nouveauDepot.nom = "\(nomChoisi)"
-        try? Element.save()
-    }
-    
-    func supprimerDepot(at offsets: IndexSet) {
-        for offset in offsets {
-        let depotChoisi = Requete[offset]
-        Element.delete(depotChoisi)
-        }
-        try? Element.save()
-        }
 }
 
 struct VueCategories: View {
@@ -63,32 +64,40 @@ struct VueCategories: View {
     @State var statutErreur: Bool = false
     @State var messageErreur: String = ""
     
+    @State var afficherNouvelleCategorie = false
+    
     var body: some View {
-        NavigationView{
-            VStack{
+        VStack{
+            HStack{
                 Text("Liste des categories")
-                    .padding()
-                List {
-                    ForEach(Requete) { Categories in
-                        HStack {
-                            Text(Categories.nom ?? "")
-                            Text(Categories.desc ?? "").foregroundColor(.gray)
-                        }
-                    }.onDelete(perform: supprimerCategorie)
+                Button("+"){
+                    afficherNouvelleCategorie.toggle()
                 }
-                TextField("Nom de la categorie", text:$nomCategorieChoisie).multilineTextAlignment(.center)
-                TextField("Description de la categorie", text:$descCategorieChoisie).multilineTextAlignment(.center)
-                Button("+ Nouvelle categorie") {
-                    nouvelleCategorie()
-                }
-                
-            }.alert(isPresented: $statutErreur) {
-                Alert(
-                    title: Text("Erreur"),
-                    message: Text(messageErreur)
-                )
-            }.padding()
-        }.navigationTitle("Liste des categories").navigationBarTitleDisplayMode(.inline)
+            }
+            if afficherNouvelleCategorie {
+                VStack{
+                    TextField("Nom de la categorie", text:$nomCategorieChoisie).multilineTextAlignment(.center)
+                    TextField("Description de la categorie", text:$descCategorieChoisie).multilineTextAlignment(.center)
+                    Button("Ajouter la categorie") {
+                        nouvelleCategorie()
+                    }
+                }}
+            List {
+                ForEach(Requete) { Categories in
+                    HStack {
+                        Text(Categories.nom ?? "")
+                        Text(Categories.desc ?? "").foregroundColor(.gray)
+                    }
+                }.onDelete(perform: supprimerCategorie)
+            }
+            
+            
+        }.alert(isPresented: $statutErreur) {
+            Alert(
+                title: Text("Erreur"),
+                message: Text(messageErreur)
+            )
+        }
     }
     
     func nouvelleCategorie() {
@@ -109,11 +118,11 @@ struct VueCategories: View {
     
     func supprimerCategorie(at offsets: IndexSet) {
         for offset in offsets {
-        let categorieChoisie = Requete[offset]
-        Element.delete(categorieChoisie)
+            let categorieChoisie = Requete[offset]
+            Element.delete(categorieChoisie)
         }
         try? Element.save()
-        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
