@@ -20,6 +20,7 @@ struct ContentView: View {
         
         VStack{
             Text("Reflexo")
+                .padding(.bottom)
         }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor.systemBlue))
         
         TabView {
