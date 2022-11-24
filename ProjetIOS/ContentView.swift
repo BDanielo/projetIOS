@@ -40,11 +40,11 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                     Text("Depots")
                 }
-//            VueCategorie()
-//                .tabItem {
-//                    Image(systemName: "square.split.2x2")
-//                    Text("Categories")
-//            }
+            VueCategories()
+                .tabItem {
+                    Image(systemName: "square.split.2x2")
+                    Text("Categories")
+            }
 //            VueArticle()
 //                .tabItem {
 //                    Image(systemName: "cube.box.fill")
@@ -119,6 +119,78 @@ struct VueDepots: View {
         }
         try? Element.save()
         }
+}
+
+struct VueCategories: View {
+    
+    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Categories>
+    @Environment(\.managedObjectContext) var Element
+    
+    @State var nomCategorieChoisie: String = ""
+    @State var descCategorieChoisie: String = ""
+    
+    @State var statutErreur: Bool = false
+    @State var messageErreur: String = ""
+    
+    @State var afficherNouvelleCategorie = false
+    
+    var body: some View {
+        VStack{
+            HStack{
+                Text("Liste des categories")
+                Button("+"){
+                    afficherNouvelleCategorie.toggle()
+                }
+            }
+            if afficherNouvelleCategorie {
+                VStack{
+                    TextField("Nom de la categorie", text:$nomCategorieChoisie).multilineTextAlignment(.center)
+                    TextField("Description de la categorie", text:$descCategorieChoisie).multilineTextAlignment(.center)
+                    Button("Ajouter la categorie") {
+                        nouvelleCategorie()
+                    }
+                }}
+            List {
+                ForEach(Requete) { Categories in
+                    HStack {
+                        Text(Categories.nom ?? "")
+                        Text(Categories.desc ?? "").foregroundColor(.gray)
+                    }
+                }.onDelete(perform: supprimerCategorie)
+            }
+            
+            
+        }.alert(isPresented: $statutErreur) {
+            Alert(
+                title: Text("Erreur"),
+                message: Text(messageErreur)
+            )
+        }
+    }
+    
+    func nouvelleCategorie() {
+        let nomChoisi = nomCategorieChoisie
+        let descChoisie = descCategorieChoisie
+        if (!nomChoisi.isEmpty) {
+            let nouvelleCategorie = Categories(context: Element)
+            nouvelleCategorie.id = UUID()
+            nouvelleCategorie.nom = "\(nomChoisi)"
+            nouvelleCategorie.desc = "\(descChoisie)"
+            try? Element.save()
+        }
+        else {
+            statutErreur=true
+            messageErreur="Le nom de la categorie ne peut etre vide"
+        }
+    }
+    
+    func supprimerCategorie(at offsets: IndexSet) {
+        for offset in offsets {
+            let categorieChoisie = Requete[offset]
+            Element.delete(categorieChoisie)
+        }
+        try? Element.save()
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
