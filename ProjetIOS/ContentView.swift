@@ -7,6 +7,54 @@
 
 import SwiftUI
 
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
+}
+
+
+extension TabView {
+
+    func myTabViewStyle() -> some View {
+        self.background(Color(UIColor.systemGray6))
+
+    }
+}
+
+
+struct ContentView: View {
+    init() {
+        UITabBar.appearance().isTranslucent = false
+    }
+    
+    @Environment(\.colorScheme) var colorScheme
+    var body: some View {
+        
+        VStack{
+            Text("Reflexo")
+        }.frame(minWidth: 0, maxWidth: .infinity, alignment: .top).background(Color(UIColor.systemBlue))
+        
+        TabView {
+            VueDepots()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Depots")
+                }
+//            VueCategorie()
+//                .tabItem {
+//                    Image(systemName: "square.split.2x2")
+//                    Text("Categories")
+//            }
+//            VueArticle()
+//                .tabItem {
+//                    Image(systemName: "cube.box.fill")
+//                    Text("Articles")
+//            }
+        }.myTabViewStyle()
+    }
+}
+
 struct VueDepots: View {
     
     @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Depots>
@@ -14,11 +62,24 @@ struct VueDepots: View {
     
     @State var nomDepotChoisi: String = ""
     
+    @State var afficherNouveauDepot = false
+    
     var body: some View {
-        NavigationView{
             VStack{
-                Text("Liste des depots")
-                    .padding()
+                HStack{
+                    Text("Liste des depots")
+                    Button("+"){
+                        afficherNouveauDepot.toggle()
+                    }
+                }
+                if afficherNouveauDepot {
+                HStack{
+                    TextField("Nom du nouveau depot", text:$nomDepotChoisi).multilineTextAlignment(.leading).padding(6)
+                    Button("Ajouter le depot") {
+                        nouveauDepot()
+                    }.padding(6)
+                }
+                }
                 List {
                     ForEach(Requete) { Depots in
                         HStack {
@@ -26,13 +87,9 @@ struct VueDepots: View {
                         }
                     }.onDelete(perform: supprimerDepot)
                 }
-                TextField("Nom du nouveau depot", text:$nomDepotChoisi).multilineTextAlignment(.center)
-                Button("+ Nouveau Depot") {
-                    nouveauDepot()
-                }
+
                 
             }
-        }.navigationTitle("Liste des depots").navigationBarTitleDisplayMode(.inline)
     }
     
     func nouveauDepot() {
