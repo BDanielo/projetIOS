@@ -13,19 +13,7 @@ extension UIScreen{
    static let screenSize = UIScreen.main.bounds.size
 }
 
-
-extension TabView {
-
-    func myTabViewStyle() -> some View {
-        self.background(Color(UIColor.systemGray6))
-    }
-}
-
-
 struct ContentView: View {
-    init() {
-        UITabBar.appearance().isTranslucent = false
-    }
     
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
@@ -38,19 +26,24 @@ struct ContentView: View {
             VueDepots()
                 .tabItem {
                     Image(systemName: "house.fill")
-                    Text("Depots")
-                }
+                    Text("Depots").foregroundColor(Color(UIColor.white))
+                }.tag(0)
             VueCategories()
                 .tabItem {
                     Image(systemName: "square.split.2x2")
                     Text("Categories")
-            }
+                }.tag(1)
             VueArticles()
                 .tabItem {
                     Image(systemName: "cube.box.fill")
-                    Text("Articles")
-            }
-        }.myTabViewStyle()
+                    Text("Articles").foregroundColor(.yellow)
+                }.tag(2)
+        }.onAppear {
+            UITabBar.appearance().backgroundColor = UIColor(Color(red:0.12,green:0.16,blue:0.27))
+            UITabBar.appearance().isTranslucent = false
+            UITabBar.appearance().unselectedItemTintColor = .white
+
+        }
     }
 }
 
