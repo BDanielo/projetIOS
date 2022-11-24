@@ -18,7 +18,6 @@ extension TabView {
 
     func myTabViewStyle() -> some View {
         self.background(Color(UIColor.systemGray6))
-
     }
 }
 
@@ -64,6 +63,9 @@ struct VueDepots: View {
     
     @State var afficherNouveauDepot = false
     
+    @State var statutErreur: Bool = false
+    @State var messageErreur: String = ""
+    
     var body: some View {
             VStack{
                 HStack{
@@ -83,21 +85,31 @@ struct VueDepots: View {
                 List {
                     ForEach(Requete) { Depots in
                         HStack {
-                            Text(Depots.nom ?? "").foregroundColor(.gray)
+                            Text(Depots.nom ?? "")
                         }
                     }.onDelete(perform: supprimerDepot)
                 }
 
                 
+            }.alert(isPresented: $statutErreur) {
+                Alert(
+                    title: Text("Erreur"),
+                    message: Text(messageErreur)
+                )
             }
     }
     
     func nouveauDepot() {
         let nomChoisi = nomDepotChoisi
+        if (!nomChoisi.isEmpty) {
         let nouveauDepot = Depots(context: Element)
         nouveauDepot.id = UUID()
         nouveauDepot.nom = "\(nomChoisi)"
         try? Element.save()
+        } else {
+            statutErreur=true
+            messageErreur="Le nom du depot ne peut etre vide"
+        }
     }
     
     func supprimerDepot(at offsets: IndexSet) {
