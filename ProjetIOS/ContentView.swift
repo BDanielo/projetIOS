@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+var idAffiche = UUID()
+
 struct VueDepots: View {
     
     @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Depots>
@@ -139,6 +141,9 @@ struct VueArticles: View {
                             Text(Articles.nom ?? "")
                             Text(Articles.desc ?? "")
                             Text(String(Articles.qte)).padding(.horizontal, 20)
+                            NavigationLink(destination: vueUnArticle(Articles.id)) {
+                                Text("+ d'infos")
+                            }
                         }
                     }.onDelete(perform: supprimerArticle)
                 }
@@ -183,6 +188,30 @@ struct VueArticles: View {
         }
         try? Element.save()
         }
+}
+
+class idArticle: ObservableObject {
+    @Published var id = UUID()
+}
+
+struct vueUnArticle: View {
+    
+    @ObservedObject var idArticle : idArticle
+    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Articles>
+    @Environment(\.managedObjectContext) var Element
+    
+    var body: some View {
+        ForEach(Requete) { Articles in
+            if (Articles.id == idArticle.id) {
+                VStack {
+                    Text(Articles.nom ?? "")
+                    Text(Articles.desc ?? "")
+                    Text(String(Articles.qte))
+                }
+            }
+            
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
