@@ -8,9 +8,9 @@
 import SwiftUI
 
 extension UIScreen{
-   static let screenWidth = UIScreen.main.bounds.size.width
-   static let screenHeight = UIScreen.main.bounds.size.height
-   static let screenSize = UIScreen.main.bounds.size
+    static let screenWidth = UIScreen.main.bounds.size.width
+    static let screenHeight = UIScreen.main.bounds.size.height
+    static let screenSize = UIScreen.main.bounds.size
 }
 
 struct ContentView: View {
@@ -43,7 +43,7 @@ struct ContentView: View {
             UITabBar.appearance().backgroundColor = UIColor(Color(red:0.12,green:0.16,blue:0.27))
             UITabBar.appearance().isTranslucent = false
             UITabBar.appearance().unselectedItemTintColor = .white
-
+            
         }
     }
 }
@@ -61,45 +61,45 @@ struct VueDepots: View {
     @State var messageErreur: String = ""
     
     var body: some View {
-            VStack{
-                HStack{
-                    Text("Liste des depots")
-                    Button("+"){
-                        afficherNouveauDepot.toggle()
-                    }
+        VStack{
+            HStack{
+                Text("Liste des depots")
+                Button("+"){
+                    afficherNouveauDepot.toggle()
                 }
-                if afficherNouveauDepot {
+            }
+            if afficherNouveauDepot {
                 HStack{
                     TextField("Nom du nouveau depot", text:$nomDepotChoisi).multilineTextAlignment(.leading).padding(6)
                     Button("Ajouter le depot") {
                         nouveauDepot()
                     }.padding(6)
                 }
-                }
-                List {
-                    ForEach(Requete) { Depots in
-                        HStack {
-                            Text(Depots.nom ?? "")
-                        }
-                    }.onDelete(perform: supprimerDepot)
-                }
-
-                
-            }.alert(isPresented: $statutErreur) {
-                Alert(
-                    title: Text("Erreur"),
-                    message: Text(messageErreur)
-                )
             }
+            List {
+                ForEach(Requete) { Depots in
+                    HStack {
+                        Text(Depots.nom ?? "")
+                    }
+                }.onDelete(perform: supprimerDepot)
+            }
+            
+            
+        }.alert(isPresented: $statutErreur) {
+            Alert(
+                title: Text("Erreur"),
+                message: Text(messageErreur)
+            )
+        }
     }
     
     func nouveauDepot() {
         let nomChoisi = nomDepotChoisi
         if (!nomChoisi.isEmpty) {
-        let nouveauDepot = Depots(context: Element)
-        nouveauDepot.id = UUID()
-        nouveauDepot.nom = "\(nomChoisi)"
-        try? Element.save()
+            let nouveauDepot = Depots(context: Element)
+            nouveauDepot.id = UUID()
+            nouveauDepot.nom = "\(nomChoisi)"
+            try? Element.save()
         } else {
             statutErreur=true
             messageErreur="Le nom du depot ne peut etre vide"
@@ -108,11 +108,11 @@ struct VueDepots: View {
     
     func supprimerDepot(at offsets: IndexSet) {
         for offset in offsets {
-        let depotChoisi = Requete[offset]
-        Element.delete(depotChoisi)
+            let depotChoisi = Requete[offset]
+            Element.delete(depotChoisi)
         }
         try? Element.save()
-        }
+    }
 }
 
 struct VueCategories: View {
@@ -189,7 +189,10 @@ struct VueCategories: View {
 
 struct VueArticles: View {
     
-    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Articles>
+    @FetchRequest(
+        sortDescriptors: [SortDescriptor(\.nom)]//,
+        //predicate: NSPredicate(format: "nom == %@", "12345")
+    ) var Requete: FetchedResults<Articles>
     @Environment(\.managedObjectContext) var Element
     
     @State var nomArticleChoisi: String = ""
@@ -198,6 +201,8 @@ struct VueArticles: View {
     
     @State var statutErreur: Bool = false
     @State var messageErreur: String = ""
+    
+    @State var voirDetailsArticle = false
     
     @State var afficherNouvelArticle = false
     
@@ -229,8 +234,8 @@ struct VueArticles: View {
                         Text(Articles.nom ?? "")
                         Text(String(Articles.qte))
                         Button("Plus d'infos") {
-                            //! lien a faire avec article pour la modif et afficher les infos
-                        }
+                            voirDetailsArticle.toggle()
+                        }.sheet(isPresented: $voirDetailsArticle){ VueArticle(ArticleChoisi: Articles)}
                     }
                 }.onDelete(perform: supprimerArticle)
             }
@@ -269,6 +274,71 @@ struct VueArticles: View {
         }
         try? Element.save()
     }
+}
+
+struct VueArticle: View {
+    
+    var ArticleChoisi: Articles
+    
+    @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Articles>
+    @Environment(\.managedObjectContext) var Element
+    
+    @State var modifEnCours = true
+    
+    
+    
+    @State var afficherNouvelArticle = false
+    
+    @State var nom = ""
+    @State var desc = ""
+    @State var qte = ""
+    
+    
+    var body: some View {
+        VStack{
+            HStack{
+                Text("Nom :")
+                TextField("Nom", text:$nom).disabled(!modifEnCours)
+            }
+            
+            HStack{
+                Text("Description :")
+                TextField("Description", text:$desc).disabled(!modifEnCours)
+            }
+            
+            HStack{
+                Text("Quantite :")
+                TextField("Quantite", text:$qte).disabled(!modifEnCours)
+            }
+            Button("Maj"){
+                majArticle()
+            }
+        }.onAppear {
+            nom = ArticleChoisi.nom ?? ""
+            desc = ArticleChoisi.desc ?? ""
+            qte = String(ArticleChoisi.qte)
+            
+        }
+    }
+    
+    func majArticle(){
+//        let qteChoisi : Int16 = Int16(qte) ?? 0
+//        let article = Articles(context: Element)
+//        article.id = ArticleChoisi.id
+//        article.nom = nom
+//        article.desc = desc
+//        article.qte = qteChoisi
+//        try? Element.save()
+        //let articleChoisi = Requete[ArticleChoisi.id]
+//        let qteChoisi : Int16 = Int16(qte) ?? 0
+//        ArticleChoisi.nom = nom
+//        ArticleChoisi.desc = desc
+//        ArticleChoisi.qte = qteChoisi
+//        try? ArticleChoisi.save()
+        
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
