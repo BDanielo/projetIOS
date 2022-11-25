@@ -278,6 +278,7 @@ struct VueArticles: View {
 
 struct VueArticle: View {
     
+    
     var ArticleChoisi: Articles
     
     @FetchRequest(sortDescriptors: []) var Requete: FetchedResults<Articles>
@@ -310,8 +311,13 @@ struct VueArticle: View {
                 Text("Quantite :")
                 TextField("Quantite", text:$qte).disabled(!modifEnCours)
             }
+            Button("Modif"){
+                modifEnCours.toggle()
+            }
+            if modifEnCours{
             Button("Maj"){
                 majArticle()
+            }
             }
         }.onAppear {
             nom = ArticleChoisi.nom ?? ""
@@ -322,7 +328,13 @@ struct VueArticle: View {
     }
     
     func majArticle(){
-//        let qteChoisi : Int16 = Int16(qte) ?? 0
+        @FetchRequest(
+            sortDescriptors: [SortDescriptor(\.nom)],
+            predicate: NSPredicate(format: "nom == %@", ArticleChoisi.nom! as NSString)
+        ) var testRequete: FetchedResults<Articles>
+        let qteChoisi : Int16 = Int16(qte) ?? 0
+        
+        //Element.delete(testRequete[0])
 //        let article = Articles(context: Element)
 //        article.id = ArticleChoisi.id
 //        article.nom = nom

@@ -13,7 +13,7 @@ class DataController: ObservableObject {
     init() {
         container.loadPersistentStores { description, error in
             if let error = error {
-                print("Erreur de chargement du Data Model")
+                print("Erreur de chargement du Data Model : \(error)")
             }
         }
     }
